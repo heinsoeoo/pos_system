@@ -9,7 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Link } from "react-router-dom";
 import { Add } from '@mui/icons-material';
-import { Paper, Fab, Typography } from "@mui/material";
+import { Paper, Fab, Typography, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { invoiceActions } from '../../store/actions/invoice.actions';
 
@@ -49,7 +49,7 @@ const headCells = [
         numeric: false,
         disablePadding: false,
         label: 'Note',
-    }
+    },
 ];
 
 const Invoices = () => {

@@ -12,8 +12,11 @@ module.exports = {
                     ['createdAt', 'DESC'],
                 ]
             });
-
-            return invoices;
+            const response = invoices.map(inv => {
+                inv.products = JSON.parse(inv.products);
+                return inv;
+            });
+            return response;
         } catch (err) {
             throw new APIError('API Error', STATUS_CODES.INTERNAL_ERROR, 'Unable to retrieve invoices');
         }
@@ -21,13 +24,14 @@ module.exports = {
 
     async createInvoice(data) {
         console.log(data);
-        const {date, customer_name, sale_person, notes, products} = data;
+        const {date, customer_name, sale_person, notes, products, paid} = data;
         try {
             const invoice = await invoiceModel.create({
                 date: date,
                 customer_name: customer_name,
                 sale_person: sale_person,
                 notes: notes,
+                paid: paid,
                 products: JSON.stringify(products),
             });
             

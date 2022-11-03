@@ -26,6 +26,10 @@ module.exports = (db) => {
         products: {
             type: Sequelize.TEXT,
             allowNull: false
+        },
+        paid: {
+            type: Sequelize.INTEGER,
+            allowNull: false
         }
     });
 

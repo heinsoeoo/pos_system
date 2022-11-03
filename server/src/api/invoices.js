@@ -21,8 +21,8 @@ module.exports = (app) => {
 
     app.post('/invoice', validator(invoiceRule), apiAuth, async(req, res, next) => {
         try {
-            const {date, customer_name, sale_person, notes, products} = req.body;
-            const data = await invoiceController.createInvoice({date, customer_name, sale_person, notes, products});
+            const {date, customer_name, sale_person, notes, products, paid} = req.body;
+            const data = await invoiceController.createInvoice({date, customer_name, sale_person, notes, products, paid});
             return res.status(200).json(data);
         } catch (err) {
             next(err);
