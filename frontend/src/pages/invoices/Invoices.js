@@ -9,11 +9,17 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Link } from "react-router-dom";
 import { Add } from '@mui/icons-material';
-import { Box, Paper, Fab, Typography } from "@mui/material";
+import { Paper, Fab, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { invoiceActions } from '../../store/actions/invoice.actions';
 
 const headCells = [
+    {
+        id: 'date',
+        numeric: false,
+        disablePadding: false,
+        label: 'Date',
+    },
     {
         id: 'customer',
         numeric: false,
@@ -69,8 +75,6 @@ const Invoices = () => {
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
-        console.log(emptyRows);
-
     return (
     <Dashboard>
             <Typography sx={{mb: '2rem'}} variant="h4">Invoice List</Typography>
@@ -112,10 +116,11 @@ const Invoices = () => {
                                         id={labelId}
                                         scope="row"
                                     >
-                                        {row.customer_name}
+                                        {row.date}
                                     </TableCell>
+                                    <TableCell>{row.customer_name}</TableCell>
                                     <TableCell>{row.sale_person}</TableCell>
-                                    <TableCell align="right">{row.total? row.total: 0}</TableCell>
+                                    <TableCell align="right">{row.paid? row.paid: 0}</TableCell>
                                     <TableCell align="right">{row.paid? row.paid: 0}</TableCell>
                                     <TableCell>{row.notes? row.notes: "-"}</TableCell>
                                 </TableRow>

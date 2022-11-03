@@ -26,7 +26,7 @@ const getInvoices = () => {
         try {
             const response = await apiService.call('get', 'invoices');
             const {data} = response;
-            const invoices = data.map(inv => ({...inv, key: inv.id}));
+            const invoices = data.map(inv => ({...inv, date: unixToDate(inv.date), key: inv.id}));
             dispatch(setInvoices(invoices));
         } catch (err) {
             dispatch(setInvoices([]));
@@ -34,10 +34,28 @@ const getInvoices = () => {
     }
 };
 
+const unixToDate = (unixTime) => {
+    return new Date(parseInt(unixTime)).toLocaleDateString();
+}
+
+const createInvoice = reqData => {
+    return async (dispatch) => {
+        try {
+            const response = await apiService.call('post', 'invoice', reqData);
+            const {data} = response;
+            const invoice = {...data, key: data.id};
+            dispatch(addInvoice(invoice));
+        } catch (err) {
+            dispatch(addInvoice({}));
+        }
+    }
+}
+
 export const invoiceActions = {
     setInvoices,
     setInvoice,
     addInvoice,
     removeInvoice,
-    getInvoices
+    getInvoices,
+    createInvoice
 }

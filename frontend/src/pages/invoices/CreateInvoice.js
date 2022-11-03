@@ -101,7 +101,10 @@ const CreateInvoice = () => {
 
     const createInvoice = async (data) => {
         if (cartProducts.length > 0) {
-            // await dispatch(invoiceActions.createInvoice(data));
+            data.products = cartProducts;
+            data.date = Date.now();
+            data.paid = total;
+            await dispatch(invoiceActions.createInvoice(data));
         }
     }
 
@@ -229,6 +232,7 @@ const CreateInvoice = () => {
                         rows={4}
                         name='note'
                         label='Notes (Optional)'
+                        {...register('note')}
                         />
                         <Button disabled={(cartProducts.length === 0)? true: false} sx={{ mt: '2rem', mb: '4rem'}} fullWidth variant='contained' type='submit'>Save</Button>
                     </Grid>
