@@ -1,0 +1,74 @@
+{
+    "products":[
+        {
+            "key": 1,
+            "name": "M2 Macbook Air",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8wpTeQ9Y94E3ssVF5uO-keqCDxQul_ikLSw&usqp=CAU",
+            "qty": 15,
+            "price": 30000
+        },
+        {
+            "key": 2,
+            "name": "iPhone 12",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToFQ30Gsi-_6XuKoHtEXtDwIXDANVIXiuA1g&usqp=CAU",
+            "qty": 25,
+            "price": 30000
+        },
+        {
+            "key": 3,
+            "name": "iPhone 13",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPJUr3qJpj64ns0N0MJqm9ffc8IdvfvfjwSQ&usqp=CAU",
+            "qty": 20,
+            "price": 30000
+        },
+        {
+            "key": 4,
+            "name": "iPhone 13 pro",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfojVNon7Q-sGAy5cT0sIzdr8OXmm_pLInPyIFcFnFSCftpIdViVr5v3Wu8WX8niLVzV0&usqp=CAU",
+            "qty": 30,
+            "price": 30000
+        },
+        {
+            "key": 5,
+            "name": "M2 Macbook Pro",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEGXk0HGPAfZAWtcbiXuJDGdeNjyVzfljmPA&usqp=CAU",
+            "qty": 5,
+            "price": 30000
+        },
+        {
+            "key": 6,
+            "name": "Google Pixel 7",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTevTeYVoxh8B0-9dI2cjm_9d_gLmyiOadtqPLG1GUTu1qRnqzK9ZlVra5Zxio4lUmgH0E&usqp=CAU",
+            "qty": 35,
+            "price": 30000
+        },
+        {
+            "key": 7,
+            "name": "Google Pixel 7 pro",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf0XGTaTJbeJ7zzTHpiRiyEAhd_IPReFZFqGDhJrpRiPjY0SrgUg1E6y5OQxFOxGh80ko&usqp=CAU",
+            "qty": 30,
+            "price": 30000
+        },
+        {
+            "key": 8,
+            "name": "Google Pixel 6",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuHMEgeQDApfcUQGj0otUpK3vh4i0CpkJAfodBaDgNdVEaAU9fXaAoCSfpde7uHc9nHQo&usqp=CAU",
+            "qty": 18,
+            "price": 30000
+        },
+        {
+            "key": 9,
+            "name": "Google Pixel 6 pro",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVyHejlq9A4bquEHNWp7lkaFpNohX7iPqVyA&usqp=CAU",
+            "qty": 17,
+            "price": 30000
+        },
+        {
+            "key": 10,
+            "name": "Nothing Phone 1",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOcu3Q_fDz9dG9Mn1mMtCbFY4M_jfF8JpoUw&usqp=CAU",
+            "qty": 40,
+            "price": 30000
+        }
+    ]
+}

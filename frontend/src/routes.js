@@ -1,4 +1,5 @@
 import Invoices from "./pages/invoices/Invoices";
+import CreateInvoice from './pages/invoices/CreateInvoice';
 
 const routes = [
     {
@@ -6,6 +7,12 @@ const routes = [
         key: "invoices",
         path: "/app",
         component: <Invoices/>
+    },
+    {
+        name: "Create Invoice",
+        key: "create-invoice",
+        path: "/create-invoice",
+        component: <CreateInvoice/>
     }
 ];
 
