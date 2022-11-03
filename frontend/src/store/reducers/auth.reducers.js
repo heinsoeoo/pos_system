@@ -1,4 +1,3 @@
-import { getToken } from '../../utils/token';
 import { getUser } from '../../utils/user';
 import { authConstants } from '../constants';
 

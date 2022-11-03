@@ -1,4 +1,4 @@
-const Dashboard = () => {
+const NotFound = () => {
     return (
         <>
             404 Not Found!
@@ -6,4 +6,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard;
+export default NotFound;

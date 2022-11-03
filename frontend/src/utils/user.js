@@ -7,3 +7,8 @@ export const getUser = () => (
 export const setUser = (value) => (
     localStorage.setItem(USER, value)
 )
+
+
+export const deleteUser = () => {
+    localStorage.removeItem(USER);
+}

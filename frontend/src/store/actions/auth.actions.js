@@ -1,11 +1,12 @@
 import { authConstants } from "../constants";
 import { apiService } from '../../services';
-import { setToken } from '../../utils/token';
-import { setUser } from '../../utils/user';
+import { deleteToken, setToken } from '../../utils/token';
+import { deleteUser, setUser } from '../../utils/user';
+import { toast } from 'react-toastify';
 
 const setAuthUser = user => ({
     type: authConstants.SET_AUTH_USER,
-    user: user
+    user
 })
 
 const login = credentials => {
@@ -17,17 +18,29 @@ const login = credentials => {
             await setUser(JSON.stringify(user));
             apiService.setAuthHeader(token);
             dispatch(setAuthUser(user));
+            toast.success("Logged in successfully");
         } catch (err) {
-            console.log(err.response.data);
-            await setToken(null);
-            await setUser({});
+            await deleteToken();
+            await deleteUser();
             apiService.setAuthHeader(null);
             dispatch(setAuthUser({}));
+            toast.error(err.response.data?.error, {autoClose: 1000});
         }
+    }
+}
+
+const logout = () => {
+    return async (dispatch) => {
+        await deleteToken();
+        await deleteUser();
+        apiService.setAuthHeader(null);
+        dispatch(setAuthUser({}));
+        toast.success("Logged out successfully");
     }
 }
 
 export const userActions = {
     login,
+    logout,
     setAuthUser
 }

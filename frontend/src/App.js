@@ -8,10 +8,10 @@ import Login from './pages/auth/Login';
 import NotFound from './pages/NotFound';
 import routes from './routes';
 import { useSelector } from 'react-redux';
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const auth = useSelector((state) => state.auth);
-  console.log(auth);
   const getRoutes = () => routes.map((route) => {
     return <Route exact path={route.path} element={route.component} key={route.key} />
   })

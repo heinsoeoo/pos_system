@@ -1,0 +1,6 @@
+export const invoiceConstants = {
+    GET_INVOICES: 'GET_INVOICES',
+    GET_INVOICE: 'GET_INVOICE',
+    CREATE_INVOICE: 'CREATE_INVOICE',
+    DELETE_INVOICE: 'DELETE_INVOICE'
+}
