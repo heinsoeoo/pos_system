@@ -43,7 +43,16 @@ module.exports = {
             const invoice = await invoiceModel.findByPk(id);
             return invoice;
         } catch (err) {
-            throw new APIError('API Error', STATUS_CODES.INTERNAL_ERROR, 'Unable to find invoice');
+            throw new APIError('API Error', STATUS_CODES.INTERNAL_ERROR, `Unable to get specific invoice with id: ${id}`);
+        }
+    },
+
+    async deleteByPk(id) {
+        try {
+            const count = await invoiceModel.destroy({ where: {id: id}});
+            return (count > 0)? true: false;
+        } catch (err) {
+            throw new APIError('API Error', STATUS_CODES.INTERNAL_ERROR, "Unable to delete invoice");
         }
     }
 }

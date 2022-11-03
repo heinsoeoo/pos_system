@@ -19,6 +19,24 @@ module.exports = {
         } catch (err) {
             throw new APIError('Unable to create invoice');
         }
+    },
+
+    async getInvoice(id) {
+        try {
+            const invoice = await invoiceRepository.findByPk(id);
+            return {data: invoice};
+        } catch (err) {
+            throw new APIError(`Unable to get specific invoice with id: ${id}`);
+        }
+    },
+    
+    async deleteInvoice(id) {
+        try {
+            const isDeleted = await invoiceRepository.deleteByPk(id);
+            return {success: isDeleted};
+        } catch (err) {
+            throw new APIError('Unable to delete invoice');
+        }
     }
 
 }

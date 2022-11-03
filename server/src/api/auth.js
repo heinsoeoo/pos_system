@@ -1,5 +1,6 @@
 const AuthController = require("../controllers/auth-controller");
 const validator = require('json-request-validator');
+const apiAuth = require('./middleware');
 
 const registerRule = {
     name: 'required',
@@ -43,12 +44,8 @@ module.exports = (app) => {
         }
     });
 
-    app.get('/me', async(req, res, next) => {
-        try {
-            const user = [];
-            return res.status(200).json(user);
-        } catch (err) {
-            next(err);
-        }
+    app.get('/me', apiAuth, async(req, res, next) => {
+            const data = req.user;
+            return res.status(200).json({user: data});
     });
 }

@@ -18,7 +18,7 @@ module.exports = {
 
     async login(credentials) {
         const {username, password} = credentials;
-        // try {
+        try {
             const user = await userRepository.findUser(username);
             console.log(user);
             if (user != null) {
@@ -29,9 +29,9 @@ module.exports = {
                 return 401;
             }
             return null;
-        // } catch (err) {
-        //     throw new APIError('Unable to create user');
-        // }
+        } catch (err) {
+            throw new APIError('Unable to create user');
+        }
     }
 
 }

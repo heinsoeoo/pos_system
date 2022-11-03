@@ -29,4 +29,24 @@ module.exports = (app) => {
         }
     });
 
+    app.get('/invoice/:id', apiAuth, async(req, res, next) => {
+        const id = req.params.id;
+        try {
+            const data = await invoiceController.getInvoice(id);
+            return res.status(200).json(data);
+        } catch (err) {
+            next(err);
+        }
+    });
+
+    app.delete('/invoice/:id', apiAuth, async(req, res, next) => {
+        const id = req.params.id;
+        try {
+            const data = await invoiceController.deleteInvoice(id);
+            return res.status(200).json(data);
+        } catch (err) {
+            next(err);
+        }
+    })
+
 }
