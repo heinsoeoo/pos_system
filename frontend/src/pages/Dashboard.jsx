@@ -1,5 +1,6 @@
 import { Box, Toolbar } from "@mui/material";
 import MyAppBar from "../components/MyAppBar";
+import { ToastContainer } from 'react-toastify';
 
 const Dashboard = ({children}) => {
     return (
@@ -11,6 +12,7 @@ const Dashboard = ({children}) => {
                     {children}
                 </Box> 
             </Box>
+            <ToastContainer autoClose={3000}/>
         </>
     )
 }

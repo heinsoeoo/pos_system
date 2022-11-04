@@ -18,7 +18,8 @@ const login = credentials => {
             await setUser(JSON.stringify(user));
             apiService.setAuthHeader(token);
             dispatch(setAuthUser(user));
-            toast.success("Logged in successfully");
+            await toast.success("Logged in successfully");
+            console.log('toasted');
         } catch (err) {
             await deleteToken();
             await deleteUser();

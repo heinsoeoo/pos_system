@@ -9,11 +9,15 @@ import TableRow from '@mui/material/TableRow';
 import mockProducts from '../../mocks/products.json';
 import { useState } from "react";
 import { ArrowBack, Error } from "@mui/icons-material";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { useDispatch } from "react-redux";
 import { invoiceActions } from "../../store/actions/invoice.actions";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -58,6 +62,7 @@ const CreateInvoice = () => {
     const [productList, setProductList] = useState(products);
     const [cartProducts, setCartProducts] = useState([]);
     const [total, setTotal] = useState(0);
+    const [dateValue, setDateValue] = useState(dayjs());
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -82,6 +87,10 @@ const CreateInvoice = () => {
         }
     }
 
+    const handleDateChange = (newValue) => {
+        setDateValue(newValue);
+      };
+
     const handleProductAdd = async (product) => {
         const index = cartProducts.findIndex(element => element.key === product.key);
         if (index > -1) {
@@ -102,22 +111,37 @@ const CreateInvoice = () => {
     const createInvoice = async (data) => {
         if (cartProducts.length > 0) {
             data.products = cartProducts;
-            data.date = Date.now();
+            data.date = dateValue.unix();
             data.paid = total;
             await dispatch(invoiceActions.createInvoice(data));
+            navigate('/app');
         }
     }
 
     return (
         <Dashboard>
-            <ToastContainer autoClose={500}/>
             <Stack direction="row" spacing={2}>
                 <Button onClick={() => navigate(-1)} startIcon={<ArrowBack />}>
                     Back
                 </Button>
             </Stack>
             <Divider sx={{ maxWidth: '14rem'}}/>
-            <Typography sx={{mb: '2rem'}} variant="h4">Create Invoice</Typography>
+            <Grid container>
+                <Grid item md={6}>
+                   <Typography sx={{mb: '2rem'}} variant="h5">Create Invoice</Typography>
+                </Grid>
+                <Grid item md={6}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <MobileDatePicker
+                    label="Date"
+                    inputFormat="MM/DD/YYYY"
+                    value={dateValue}
+                    onChange={handleDateChange}
+                    renderInput={(params) => <TextField sx={{float: 'right', clear: 'both'}} {...params} />}
+                    />
+                </LocalizationProvider>
+                </Grid>
+            </Grid>
             <Box component="form" autoComplete='off' onSubmit={handleSubmit(createInvoice)}>
                 <Grid container spacing={2} sx={{mb: '1rem'}}>
                     <Grid item lg={6} md={6} sm={6}>
@@ -184,7 +208,7 @@ const CreateInvoice = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <Grid container sx={{ mt: '2rem'}}>
+                    <Grid container sx={{ mt: '2rem', mb: '3rem'}}>
                         <Grid item md={6}>
                             <Typography variant='h6'>Total</Typography>
                         </Grid>

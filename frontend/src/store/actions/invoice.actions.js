@@ -1,5 +1,7 @@
 import { apiService } from "../../services";
 import { invoiceConstants } from "../constants"
+import { toast } from 'react-toastify';
+import dayjs from 'dayjs';
 
 const setInvoices = invoices => ({
     type: invoiceConstants.GET_INVOICES,
@@ -35,7 +37,7 @@ const getInvoices = () => {
 };
 
 const unixToDate = (unixTime) => {
-    return new Date(parseInt(unixTime)).toLocaleDateString();
+    return new Date(parseInt(unixTime*1000)).toLocaleDateString();
 }
 
 const createInvoice = reqData => {
@@ -44,9 +46,11 @@ const createInvoice = reqData => {
             const response = await apiService.call('post', 'invoice', reqData);
             const {data} = response;
             const invoice = {...data, key: data.id};
+            toast.success("Created invoice successfully");
             dispatch(addInvoice(invoice));
         } catch (err) {
             dispatch(addInvoice({}));
+            toast.error("Failed to create invoice");
         }
     }
 }
