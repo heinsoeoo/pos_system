@@ -1,6 +1,7 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import { Link } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -10,10 +11,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../store/actions/auth.actions';
+import { useNavigate } from 'react-router-dom';
 
 const MyAppBar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -40,9 +43,9 @@ const MyAppBar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            POS Invoicing System
-          </Typography>
+            <Typography onClick={() => navigate('/app')} variant="h6" component="div" sx={{ flexGrow: 1, cursor: 'pointer' }}>
+              POS Invoicing System
+            </Typography>
           
               <IconButton
                 size="large"
