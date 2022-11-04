@@ -9,7 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Link, useNavigate } from "react-router-dom";
 import { Add } from '@mui/icons-material';
-import { Paper, Fab, Typography, Button, Grid } from "@mui/material";
+import { Paper, Fab, Typography, Button, Grid, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { invoiceActions } from '../../store/actions/invoice.actions';
 import Chart from "../../components/Chart";
@@ -154,6 +154,7 @@ const Invoices = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
+                    {data.length === 0 && <Typography sx={{ mt: '2rem', mb: '2rem' }} textAlign='center'>No data found</Typography>}
                     <TablePagination
                     rowsPerPageOptions={[10, 25]}
                     component="div"

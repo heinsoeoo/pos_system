@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getToken } from '../utils/token';
 
-const host = "http://localhost:3001/";
+const host = "https://pos4invoice.herokuapp.com/";
 
 const token = getToken();
 
