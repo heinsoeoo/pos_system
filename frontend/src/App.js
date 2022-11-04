@@ -1,5 +1,5 @@
 import './App.css';
-import { Fragment } from 'react';
+import { Fragment, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { PrivateRoutes } from './routers/PrivateRoutes';
 import { PublicRoutes } from './routers/PublicRoutes';
@@ -9,6 +9,7 @@ import NotFound from './pages/NotFound';
 import routes from './routes';
 import { useSelector } from 'react-redux';
 import "react-toastify/dist/ReactToastify.css";
+import Loading from './pages/Loading';
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <Fragment>
+      <Suspense fallback={<Loading/>}>
       <CssBaseline />
       <Routes>
         <Route element={<PrivateRoutes/>}>
@@ -30,6 +32,7 @@ function App() {
         <Route path='/404' element={<NotFound />}/>
         <Route path='*' element={<Navigate to='/404' replace/>}/>
       </Routes>
+      </Suspense>
     </Fragment>
   );
 }

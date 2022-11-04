@@ -12,7 +12,7 @@ const Dashboard = ({children}) => {
                     {children}
                 </Box> 
             </Box>
-            <ToastContainer autoClose={3000}/>
+            <ToastContainer autoClose={5000}/>
         </>
     )
 }

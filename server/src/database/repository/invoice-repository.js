@@ -44,7 +44,9 @@ module.exports = {
 
     async findByPk(id) {
         try {
-            const invoice = await invoiceModel.findByPk(id);
+            let invoice = await invoiceModel.findByPk(id);
+            invoice.products = JSON.parse(invoice.products);
+            
             return invoice;
         } catch (err) {
             throw new APIError('API Error', STATUS_CODES.INTERNAL_ERROR, `Unable to get specific invoice with id: ${id}`);

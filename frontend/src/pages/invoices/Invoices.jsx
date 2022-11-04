@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Add } from '@mui/icons-material';
 import { Paper, Fab, Typography, Button, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -57,6 +57,7 @@ const Invoices = () => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const data = useSelector((state) => state.invoice.invoiceList);
 
     const handleChangePage = (event, newPage) => {
@@ -67,6 +68,10 @@ const Invoices = () => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+
+    const handleRowClick = (row) => {
+        navigate(`/invoice/${row.id}`);
+    }
 
     useEffect(() => {
         dispatch(invoiceActions.getInvoices());
@@ -114,7 +119,10 @@ const Invoices = () => {
                                 const labelId = `enhanced-table-checkbox-${index}`;
 
                                 return (
+                                    
                                     <TableRow
+                                    onClick={() => handleRowClick(row)}
+                                    sx={{ cursor: 'pointer' }}
                                     hover
                                     tabIndex={-1}
                                     key={row.key}

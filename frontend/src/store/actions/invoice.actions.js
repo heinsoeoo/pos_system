@@ -36,6 +36,19 @@ const getInvoices = () => {
     }
 };
 
+const getInvoice = (id) => {
+    return async (dispatch) => {
+        try {
+            const response = await apiService.call('get', `invoice/${id}`);
+            const {data} = response;
+            const invoice = {...data, date: unixToDate(data.date), key: data.id};
+            dispatch(setInvoice(invoice));
+        } catch (err) {
+            dispatch(setInvoice({}));
+        }
+    }
+};
+
 const unixToDate = (unixTime) => {
     return new Date(parseInt(unixTime*1000)).toLocaleDateString();
 }
@@ -46,11 +59,23 @@ const createInvoice = reqData => {
             const response = await apiService.call('post', 'invoice', reqData);
             const {data} = response;
             const invoice = {...data, key: data.id};
-            toast.success("Created invoice successfully");
+            toast.success("Invoice created successfully");
             dispatch(addInvoice(invoice));
         } catch (err) {
             dispatch(addInvoice({}));
             toast.error("Failed to create invoice");
+        }
+    }
+}
+
+const deleteInvoice = id => {
+    return async (dispatch) => {
+        try {
+            await apiService.call('delete', `invoice/${id}`);
+            dispatch(removeInvoice(id));
+            toast.success("Invoice deleted successfully");
+        } catch (err) {
+            toast.error("Failed to delete invoice");
         }
     }
 }
@@ -61,5 +86,7 @@ export const invoiceActions = {
     addInvoice,
     removeInvoice,
     getInvoices,
-    createInvoice
+    createInvoice,
+    getInvoice,
+    deleteInvoice
 }
