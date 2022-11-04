@@ -35,4 +35,6 @@ npm start
 | GET        | /invoice/:id      | Retrieve a specific invoice     |
 | Delete     | /invoice/:id      | Delete a specific invoice       |
 
+- [POS Invoicing System](https://jazzy-puffpuff-ffdbf1.netlify.app) Web Application deployed on Heroku
+
 - [Server Api](https://pos4invoice.herokuapp.com) Deployed on Heroku
