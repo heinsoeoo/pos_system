@@ -37,4 +37,9 @@ npm start
 
 - [POS Invoicing System](https://jazzy-puffpuff-ffdbf1.netlify.app) Web Application deployed on Heroku
 
+```
+username: heinsoe
+password: passwd
+```
+
 - [Server Api](https://pos4invoice.herokuapp.com) Deployed on Heroku
