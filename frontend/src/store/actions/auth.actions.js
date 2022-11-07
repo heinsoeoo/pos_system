@@ -30,6 +30,27 @@ const login = credentials => {
     }
 }
 
+const register = credentials => {
+    return async (dispatch) => {
+        try {
+            const response = await apiService.call('post', 'register', credentials);
+            const {user, token} = response;
+            await setToken(token);
+            await setUser(JSON.stringify(user));
+            apiService.setAuthHeader(token);
+            dispatch(setAuthUser(user));
+            await toast.success("Registered successfully");
+            console.log('toasted');
+        } catch (err) {
+            await deleteToken();
+            await deleteUser();
+            apiService.setAuthHeader(null);
+            dispatch(setAuthUser({}));
+            toast.error(err.response.data?.error, {autoClose: 1000});
+        }
+    }
+}
+
 const logout = () => {
     return async (dispatch) => {
         await deleteToken();
@@ -42,6 +63,7 @@ const logout = () => {
 
 export const userActions = {
     login,
+    register,
     logout,
     setAuthUser
 }

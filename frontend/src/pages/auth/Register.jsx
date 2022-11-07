@@ -1,22 +1,22 @@
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { userActions } from '../../store/actions/auth.actions';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {register, handleSubmit, formState: { errors }} = useForm();
 
     const auth = async (credentials) => {
-        await dispatch(userActions.login(credentials));
+        await dispatch(userActions.register(credentials));
     }
 
-    const handleRegister = () => {
-        navigate('/register');
+    const handleLogin = () => {
+        navigate('/login');
     }
 
     return <>
@@ -31,9 +31,18 @@ const Login = () => {
                 <Paper variant='outlined' sx={{padding: '2rem'}}>
                 
                     <Typography variant='h5' component='h5' sx={{ mb: '2rem' }}>
-                    Please login to your account
+                    Please register your account
                     </Typography>
                     <Box component="form" autoComplete='off' onSubmit={handleSubmit(auth)}>
+                        <TextField 
+                            sx={{ mb: 2}} 
+                            label="name" 
+                            name="name"
+                            fullWidth 
+                            {...register('name', {required:true})}
+                            error={errors['name']? true: false}
+                            helperText={errors['name']? "name is required": ""} />
+                            
                         <TextField 
                         sx={{ mb: 2}} 
                         label="username" 
@@ -53,10 +62,10 @@ const Login = () => {
                         error={errors['password']? true: false}
                         helperText={errors['password']? "password is required": ""} />
 
-                        <Button variant='contained' fullWidth type='submit'>Login</Button>
-                        
-                        <Typography onClick={handleRegister} sx={{ cursor: 'pointer', mt: '1rem' }} textAlign="center">
-                            Don't hava an account? Register here
+                        <Button variant='contained' fullWidth type='submit'>Register</Button>
+
+                        <Typography onClick={handleLogin} sx={{ cursor: 'pointer', mt: '1rem' }} textAlign="center">
+                            Already hava an account? Login here
                         </Typography>
                     </Box>
                 </Paper>
@@ -65,4 +74,4 @@ const Login = () => {
     </>
 }
 
-export default Login
+export default Register

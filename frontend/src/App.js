@@ -10,6 +10,7 @@ import routes from './routes';
 import { useSelector } from 'react-redux';
 import "react-toastify/dist/ReactToastify.css";
 import Loading from './pages/Loading';
+import Register from './pages/auth/Register';
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -27,6 +28,7 @@ function App() {
         </Route>
         <Route element={<PublicRoutes/>} >
           <Route path='/login' element={<Login />}/>
+          <Route path='/register' element={<Register />}/>
         </Route>
         <Route path='/' element={<Navigate to='/app' replace/>}/>
         <Route path='/404' element={<NotFound />}/>
