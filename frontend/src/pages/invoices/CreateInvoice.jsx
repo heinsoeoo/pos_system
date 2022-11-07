@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Divider, Grid, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Paper, Stack, styled, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Button, CircularProgress, Divider, Grid, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Paper, Stack, styled, TextField, Typography } from "@mui/material";
 import Dashboard from "../Dashboard";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,7 +12,7 @@ import { ArrowBack, Error } from "@mui/icons-material";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { invoiceActions } from "../../store/actions/invoice.actions";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
@@ -65,6 +65,7 @@ const CreateInvoice = () => {
     const [dateValue, setDateValue] = useState(dayjs());
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { loading } = useSelector((state) => state.status);
 
     const {register, handleSubmit, formState: { errors }} = useForm();
 
@@ -258,7 +259,9 @@ const CreateInvoice = () => {
                         label='Notes (Optional)'
                         {...register('note')}
                         />
-                        <Button disabled={(cartProducts.length === 0)? true: false} sx={{ mt: '2rem', mb: '4rem'}} fullWidth variant='contained' type='submit'>Save</Button>
+                        <Button disabled={(cartProducts.length === 0 || loading)? true: false} sx={{ mt: '2rem', mb: '4rem'}} fullWidth variant='contained' type='submit'>
+                        {loading? (<CircularProgress sx={{color: 'white'}} size={24}/>) : "Save"}
+                        </Button>
                     </Grid>
                 </Grid>
             </Box>

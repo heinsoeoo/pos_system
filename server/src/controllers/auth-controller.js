@@ -30,7 +30,7 @@ module.exports = {
             }
             return null;
         } catch (err) {
-            throw new APIError('Unable to create user');
+            throw new APIError('Unable to find user!');
         }
     }
 

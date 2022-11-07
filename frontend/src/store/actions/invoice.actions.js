@@ -1,7 +1,6 @@
 import { apiService } from "../../services";
 import { invoiceConstants } from "../constants"
-import { toast } from 'react-toastify';
-import dayjs from 'dayjs';
+import { statusActions } from './status.actions';
 
 const setInvoices = invoices => ({
     type: invoiceConstants.GET_INVOICES,
@@ -25,6 +24,7 @@ const removeInvoice = id => ({
 
 const getInvoices = () => {
     return async (dispatch) => {
+        dispatch(statusActions.setLoading());
         try {
             const response = await apiService.call('get', 'invoices');
             const {data} = response;
@@ -32,12 +32,16 @@ const getInvoices = () => {
             dispatch(setInvoices(invoices));
         } catch (err) {
             dispatch(setInvoices([]));
+            dispatch(statusActions.setSuccess(false));
+            dispatch(statusActions.setMessage("Failed to retrieve data"));
         }
+        dispatch(statusActions.setLoading());
     }
 };
 
 const getInvoice = (id) => {
     return async (dispatch) => {
+        dispatch(statusActions.setLoading());
         try {
             const response = await apiService.call('get', `invoice/${id}`);
             const {data} = response;
@@ -46,6 +50,7 @@ const getInvoice = (id) => {
         } catch (err) {
             dispatch(setInvoice({}));
         }
+        dispatch(statusActions.setLoading());
     }
 };
 
@@ -55,28 +60,36 @@ const unixToDate = (unixTime) => {
 
 const createInvoice = reqData => {
     return async (dispatch) => {
+        dispatch(statusActions.setLoading());
         try {
             const response = await apiService.call('post', 'invoice', reqData);
             const {data} = response;
             const invoice = {...data, key: data.id};
-            toast.success("Invoice created successfully");
             dispatch(addInvoice(invoice));
+            dispatch(statusActions.setSuccess(true));
+            dispatch(statusActions.setMessage("Invoice created successfully"));
         } catch (err) {
             dispatch(addInvoice({}));
-            toast.error("Failed to create invoice");
+            dispatch(statusActions.setSuccess(false));
+            dispatch(statusActions.setMessage("Failed to create new invoice"));
         }
+        dispatch(statusActions.setLoading());
     }
 }
 
 const deleteInvoice = id => {
     return async (dispatch) => {
+        dispatch(statusActions.setLoading());
         try {
             await apiService.call('delete', `invoice/${id}`);
             dispatch(removeInvoice(id));
-            toast.success("Invoice deleted successfully");
+            dispatch(statusActions.setSuccess(true));
+            dispatch(statusActions.setMessage("Invoice deleted successfully"));
         } catch (err) {
-            toast.error("Failed to delete invoice");
+            dispatch(statusActions.setSuccess(false));
+            dispatch(statusActions.setMessage("Failed to delete the invoice"));
         }
+        dispatch(statusActions.setLoading());
     }
 }
 

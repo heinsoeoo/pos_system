@@ -1,4 +1,4 @@
-import { Grid, Paper, Typography, styled, Avatar, Button, Box, Stack, Divider } from "@mui/material";
+import { Grid, Paper, Typography, styled, Avatar, Button, Box, Divider } from "@mui/material";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -49,8 +49,6 @@ const headCells = [
     },
 ];
 
-const data = [];
-
 export default function InvoiceDetail() {
 
     const navigate = useNavigate();
@@ -60,7 +58,7 @@ export default function InvoiceDetail() {
 
     useEffect(() => {
         dispatch(invoiceActions.getInvoice(params.id));
-    }, [invoiceActions.getInvoice]);
+    }, [params.id]);
 
     const handleDelete = () => {
         dispatch(invoiceActions.deleteInvoice(params.id));

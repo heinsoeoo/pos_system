@@ -9,10 +9,11 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Link, useNavigate } from "react-router-dom";
 import { Add } from '@mui/icons-material';
-import { Paper, Fab, Typography, Button, Grid, CircularProgress } from "@mui/material";
+import { Paper, Fab, Typography, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { invoiceActions } from '../../store/actions/invoice.actions';
 import Chart from "../../components/Chart";
+import { toast } from "react-toastify";
 
 const headCells = [
     {
@@ -59,10 +60,21 @@ const Invoices = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const data = useSelector((state) => state.invoice.invoiceList);
+    const { loading, success, message } = useSelector((state) => state.status);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
+
+    useEffect(() => {
+        if (message != null) {
+            if (success) {
+                toast.success(message);
+            } else {
+                toast.error(message)
+            }
+        }
+    }, [success, message]);
 
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));

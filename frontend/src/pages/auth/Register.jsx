@@ -1,7 +1,7 @@
-import { Box, Button, Paper, TextField, Typography } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { Box, Button, CircularProgress, Paper, TextField, Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { userActions } from '../../store/actions/auth.actions';
 import { useNavigate } from 'react-router-dom';
@@ -10,9 +10,17 @@ const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {register, handleSubmit, formState: { errors }} = useForm();
+    const { loading, success, message } = useSelector((state) => state.status);
 
     const auth = async (credentials) => {
         await dispatch(userActions.register(credentials));
+        if (message != null) {
+            if (success) {
+                toast.success(message);
+            } else {
+                toast.error(message)
+            }
+        }
     }
 
     const handleLogin = () => {
@@ -62,7 +70,9 @@ const Register = () => {
                         error={errors['password']? true: false}
                         helperText={errors['password']? "password is required": ""} />
 
-                        <Button variant='contained' fullWidth type='submit'>Register</Button>
+                        <Button disabled={loading} variant='contained' fullWidth type='submit'>
+                        {loading? (<CircularProgress sx={{color: 'white'}} size={24}/>) : "Register"}
+                        </Button>
 
                         <Typography onClick={handleLogin} sx={{ cursor: 'pointer', mt: '1rem' }} textAlign="center">
                             Already hava an account? Login here

@@ -23,7 +23,7 @@ export function invoicing(state = initialState, action) {
                 invoiceList: [action.invoice, ...state.invoiceList]
             };
         case invoiceConstants.DELETE_INVOICE:
-            const filteredInvoices = state.invoiceList.filter(inv => inv.id!=action.id);
+            const filteredInvoices = state.invoiceList.filter(inv => inv.id!==action.id);
             return {
                 ...state,
                 invoiceList: filteredInvoices
